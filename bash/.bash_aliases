@@ -1,7 +1,6 @@
 ######################################################################
 #
-# r12f's bash aliases (https://github.com/r12f/config)
-# email: r12f.code@gmail.com
+# bash aliases (https://github.com/r12f/config)
 #
 ######################################################################
 
