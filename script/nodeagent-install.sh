@@ -29,7 +29,10 @@ docker_install(){
        echo -e "## DOCKER IS ALREADY INSTALLED\n"
     else
        echo -e "##INSTALLING DOCKER"
-       sudo apt-get install docker.io -y
+       sudo curl -fsSL https://get.docker.com -o get-docker.sh
+       sudo sh get-docker.sh > /dev/null 2>&1
+       sudo chmod o+rw /var/run/docker.sock; 
+       ls -al /var/run/docker.sock
        echo -e "## DOCKER INSTALLED\n"
    fi
 }
@@ -42,6 +45,8 @@ runtimes_setup(){
     crictl_install
     cni_install
     cni_config
+    runsc_install
+    kata_install
 }
 
 daemon_install() {
@@ -71,31 +76,6 @@ EOF
     sudo systemctl restart containerd
 }
 
-daemon_install() {
-    sudo apt-get -y update > /dev/null 2>&1
-    echo -e "## Write daeman.json File.\n"
-    sudo touch /etc/docker/daemon.json
-    sudo chmod 777 /etc/docker/daemon.json
-    echo "{
-    "runtimes": {
-        "quark": {
-            "path": "/usr/local/bin/quark"
-        },
-        "quark_d": {
-            "path": "/usr/local/bin/quark_d"
-        },
-        "runsc": {
-            "path": "/usr/local/bin/runsc"
-        },
-        "kata-runtime": {
-            "path": "/usr/bin/kata-runtime"
-        }
-    }
-}" | sudo tee /etc/docker/daemon.json  > /dev/null
-
-    sudo systemctl restart containerd
-}
-
 config_runtimes(){
 	if [ ! -d "/etc/containerd" ]; then
 	   echo " Directory /etc/containerd is not exist."
@@ -116,25 +96,9 @@ version = 2
   runtime_type = "io.containerd.runsc.v1"
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.quark]
   runtime_type = "io.containerd.quark.v1"
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.kata]
+  runtime_type = "io.containerd.kata.v2"
 EOF
-
-   sudo systemctl restart containerd    
-}
-
-config_runtimes(){
-    sudo chmod 777 /etc/containerd/config.toml
-    sed -i 's+disable_plugins+#disable_plugins+g' /etc/containerd/config.toml   
-    echo "
-version = 2
-[plugins.\"io.containerd.runtime.v1.linux\"]
-  shim_debug = true
-[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc]
-  runtime_type = \"io.containerd.runc.v2\"
-[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runsc]
-  runtime_type = \"io.containerd.runsc.v1\"
-[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.quark]
-  runtime_type = \"io.containerd.quark.v1\"
-" | sudo tee -a /etc/containerd/config.toml  > /dev/null
 
    sudo systemctl restart containerd    
 }
@@ -158,7 +122,6 @@ cni_install(){
     sudo wget https://github.com/containernetworking/plugins/releases/download/$VERSION/cni-plugins-linux-amd64-$VERSION.tgz
     sudo tar zxvf cni-plugins-linux-amd64-$VERSION.tgz -C /opt/cni/bin
     sudo rm -f cni-plugins-linux-amd64-$VERSION.tgz
-
 }
 
 cni_config(){
@@ -199,6 +162,34 @@ cat << EOF | sudo tee /etc/cni/net.d/10-containerd-net.conflist
 EOF
 
     sudo systemctl restart containerd    
+}
+
+runsc_install() {
+	echo -e "## Download and Install runsc (gVisor).\n"
+	(
+	  set -e
+	  ARCH=$(uname -m)
+	  URL=https://storage.googleapis.com/gvisor/releases/release/latest/${ARCH}
+	  wget ${URL}/runsc ${URL}/runsc.sha512 \
+		${URL}/containerd-shim-runsc-v1 ${URL}/containerd-shim-runsc-v1.sha512
+	  sha512sum -c runsc.sha512 \
+		-c containerd-shim-runsc-v1.sha512
+	  rm -f *.sha512
+	  chmod a+rx runsc containerd-shim-runsc-v1
+	  sudo mv runsc containerd-shim-runsc-v1 /usr/local/bin
+	)
+	# To install gVisor as a Containerd runtime, run the following commands:
+	# /usr/local/bin/runsc install
+	sudo systemctl restart containerd
+}
+
+kata_install(){
+	ARCH=$(arch)
+	BRANCH="${BRANCH:-master}"
+	sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/katacontainers:/releases:/${ARCH}:/${BRANCH}/xUbuntu_$(lsb_release -rs)/ /' > /etc/apt/sources.list.d/kata-containers.list"
+	curl -sL  http://download.opensuse.org/repositories/home:/katacontainers:/releases:/${ARCH}:/${BRANCH}/xUbuntu_$(lsb_release -rs)/Release.key | sudo apt-key add -
+	sudo -E apt-get update
+	sudo -E apt-get -y install kata-runtime kata-proxy kata-shim
 }
 
 
