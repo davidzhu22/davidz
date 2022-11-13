@@ -1,0 +1,79 @@
+//Original file name
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "sudo": true,
+            "program": "${workspaceFolder}/test3.go"
+        }
+    ]
+}
+
+
+************************************ Debug launch.json file ************************************************************ 
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug", // builds and launches, or use `exec` to executes precompiled binary //this line code
+            "host": "127.0.0.1",    //this line code 
+            "port": 2345, //2345 can be any unused port    //this line code
+            "program": "${workspaceFolder}/test3.go"
+        }
+    ]
+}
+*************************************************************************************************************************
+*************************************************************************************************************************
+**********Debug Jason file
+
+sudo <go/bin directory>/dlv-dap dap -l='127.0.0.1:2345' --only-same-user=false
+*************************************************************************************************************************
+************** import setting up for configuration debug setting ********************************************************
+sudo /home/ubuntu/go/bin/dlv-dap dap -l='127.0.0.1:2345' --only-same-user=false --check-go-version=false
+
+****** following command link to location *******************************************************************************
+sudo ln -s /usr/local/go/bin/go /usr/bin/gop
+*************************************************************************************************************************
+
+***** following is GoLang bin location  *********************************************************************************
+/home/ubuntu/go/bin
+
+**** set check go version false *****************************************************************************************
+--check-go-version=false
+
+**** If you run without debug ***************************************************
+********    you need manully stop or kill the process ********************************************
+ ps -ef|grep debug
+ kill [number]
+**************************************************************************************************************************
+
+
+
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${fileDirname}/etcdclient.go"
+        }
+    ]
+}
