@@ -200,3 +200,51 @@ git commit -m "simulation init v06 update code"
 
 *** new code **********
 git commit -m "simulation_new v01"
+
+
+************************************************************************************************************************************************
+Ensure your project has a go.mod file defined at the root of your project. If you do not already have one, go mod init will create one for you:
+
+go mod init
+
+
+*************************** client gen info *******************************************************************************************************
+https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/generating-clientset.md
+
+
+LISTER_GEN = $(shell pwd)/bin/lister-gen
+DEFAULTER_GEN = $(shell pwd)/bin/lister-gen
+CLIENT_GEN = $(shell pwd)/bin/lister-gen
+INFORMER_GEN = $(shell pwd)/bin/lister-gen
+DEEPCOPY_GEN = $(shell pwd)/bin/lister-gen
+.PHONY: lister-gen
+lister-gen: ## Download lister-gen locally if necessary.
+	$(call go-get-tool,$(DEFAULTER_GEN),k8s.io/code-generator/cmd/defaulter-gen@v0.23.1)
+	$(call go-get-tool,$(CLIENT_GEN),k8s.io/code-generator/cmd/client-gen@v0.23.1)
+	$(call go-get-tool,$(LISTER_GEN),k8s.io/code-generator/cmd/lister-gen@v0.23.1)
+	$(call go-get-tool,$(INFORMER_GEN),k8s.io/code-generator/cmd/informer-gen@v0.23.1)
+	$(call go-get-tool,$(DEEPCOPY_GEN),k8s.io/code-generator/cmd/deepcopy-gen@v0.23.1)
+
+**************************************************************************************************************************************
+************************* readme.md **************************************************************************************************
+**************************************************************************************************************************************
+### Constraints
+The target cluster: 50 bare metal servers (each with >=16 CPU, >=32 GB memory) 
+
+**************************************************************************************************************************************
+
+
+
+sudo mkdir /etc/containerd
+sudo touch /etc/containerd/config.toml
+
+if [ ! -d "/etc/containerd" ]; then
+   echo " Directory is not exist."
+   sudo mkdir /etc/containerd
+   sudo touch /etc/containerd/config.toml
+fi
+
+
+
+
+
