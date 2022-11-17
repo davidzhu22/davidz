@@ -1,0 +1,2 @@
+ tail -f nodeagent.logs
+ 
