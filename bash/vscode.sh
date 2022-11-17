@@ -1,4 +1,6 @@
 Material Icon Theme
+# install go and have a debug, your can use F1 -> Go Extension
+Rich Go language support for Visual Studio Code
 
 {
     // Use IntelliSense to learn about possible attributes.
