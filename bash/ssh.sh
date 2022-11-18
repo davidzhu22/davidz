@@ -1,5 +1,7 @@
 link: https://cloud.google.com/compute/docs/connect/add-ssh-keys
 
+https://stackoverflow.com/questions/59091502/how-to-add-an-ssh-key-to-google-cloud-using-the-cli
+
 ***************************************************************************************************************************
 **** successfull statement ********************************************************************
 gcloud compute os-login ssh-keys add --key-file=./.ssh/id_rsa.pub --project=quark-serverless
