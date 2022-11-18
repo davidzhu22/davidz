@@ -12,3 +12,20 @@ gcloud compute os-login ssh-keys add --key-file=./.ssh/gce.pub --project=quark-s
 gcloud compute instances add-metadata VM_NAME --metadata-from-file ssh-keys=KEY_FILE
 
 gcloud compute instances create VM_NAME --metadata=ssh-keys=PUBLIC_KEY
+
+
+*****************************************************************
+*** Scp copy command *********************************************
+*****************************************************************
+*** copy file *****
+scp ubuntu@10.218.233.95:/var/log/quark/quark1.log c:/temp
+*** copy 95 file to local machine **********************************************************************
+scp ubuntu@10.218.233.95:~/tmp/fornaxcore.logs.gz c:/temp
+scp ubuntu@10.218.233.95:~/tmp/nodeagent.logs.gz c:/temp
+*** copy google vm to ubuntu@10.218.233.95 machine *****************************************************
+** zip file: gzip **************************************************************************************
+name=fornaxcore
+gcloud compute scp $name:~/go/src/centaurusinfra.io/fornax-serverless/fornaxcore.logs.gz ~/tmp/ --project=quark-serverless --zone=us-central1-a
+
+name=nodeagent-1
+gcloud compute scp $name:~/go/src/centaurusinfra.io/fornax-serverless/nodeagent.logs.gz ~/tmp/ --project=quark-serverless --zone=us-central1-a
