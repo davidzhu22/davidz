@@ -1,6 +1,8 @@
 #remove container
 docker rm --force fce626371825aae3ace5431bf8ad4524ff4c0906f2fbffb61072b842eecf2e74
 
+ls /usr/local/bin/containerd* -l
+
 #remove pod
 # Delete pods
 delete_pods() {
