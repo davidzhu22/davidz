@@ -209,9 +209,11 @@ golang_tools(){
 	   echo export GOBIN=\"\$HOME/go/bin\" >> ~/.bashrc
 	   echo export PATH=\"/usr/local/go/bin:\$HOME/go/bin:\$PATH\" >> ~/.bashrc
        source $HOME/.bashrc
+       export PATH=$PATH:/usr/local/go/bin
        echo -e "## DONE\n"
     else
        echo -e "## go${GO_VERSION} already installed\n "
+       export PATH=$PATH:/usr/local/go/bin
    fi
 }
 
