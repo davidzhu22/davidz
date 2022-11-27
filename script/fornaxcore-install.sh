@@ -75,14 +75,26 @@ golang_tools(){
 	   echo export GOROOT=\"/usr/local/go\" >> ~/.bashrc
 	   echo export GOPATH=\"\$HOME/go\" >> ~/.bashrc
 	   echo export GOBIN=\"\$HOME/go/bin\" >> ~/.bashrc
-	   echo export PATH=\"/usr/local/go/bin:\$HOME/go/bin:\$PATH\" >> ~/.bashrc
+	   echo -e 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' | cat >> ~/.bashrc
        source $HOME/.bashrc
+       export PATH=$PATH:/usr/local/go/bin
        echo -e "## DONE\n"
     else
        echo -e "## go${GO_VERSION} already installed\n "
+       export PATH=$PATH:/usr/local/go/bin
    fi
 }
 
+kubectl_install(){
+    if [ "$(which kubectl)" != "" ] > /dev/null 2>&1
+     then
+        echo -e "## kubectl classic IS ALREADY INSTALLED\n"
+     else
+        echo -e "##INSTALLING kubectl"
+        sudo snap install kubectl --classic > /dev/null 2>&1
+        echo -e "## kubectl INSTALLED\n"
+    fi
+}
 
 fornaxcore_build(){
     echo -e "## CLONE FORNAXCORE SOURCE CODE"
