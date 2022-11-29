@@ -1,0 +1,30 @@
+# Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host dev-quark10
+    HostName ec2-54-214-226-14.us-west-2.compute.amazonaws.com
+    User ubuntu
+    IdentityFile C:\Users\dzhu1\key\edge-team-key.pem
+
+Host a-quark-95
+    HostName 10.218.233.95
+    User ubuntu
+    IdentityFile C:\Users\dzhu1\.ssh\id_rsa
+   
+Host a-quark2-Qingming-100
+    HostName 10.218.233.100
+    User quark
+    IdentityFile C:\Users\dzhu1\.ssh\id_rsa
+   
+Host a-quark-94
+    HostName 10.218.233.94
+    User quark
+    IdentityFile C:\Users\dzhu1\.ssh\id_rsa
+
+Host a-quark-96
+    HostName 10.218.233.94
+    User ubuntu
+    IdentityFile C:\Users\dzhu1\.ssh\id_rsa
+
+Host a-quark-77
+    HostName 10.218.233.77
+    User ubuntu
+    IdentityFile C:\Users\dzhu1\.ssh\id_rsa
