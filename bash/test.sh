@@ -12,3 +12,6 @@ Senior HRBP
 
 10900 NE 8th St.
 Bellevue Washington 98004
+
+Centaurus Open Source Community Meeting - Weekly
+https://futurewei.zoom.us/j/92636035970
