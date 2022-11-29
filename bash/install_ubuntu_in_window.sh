@@ -2,6 +2,8 @@ https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#3-download-ubu
 
 https://learn.microsoft.com/en-us/windows/wsl/install
 
+wsl --install
+
 wsl --list --online
 
 wsl --install -d <DistroName>
