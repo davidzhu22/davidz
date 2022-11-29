@@ -36,3 +36,6 @@ cold_test(){
 }
 
 cold_test
+
+# https://www.centaurusinfra.io/
+# https://github.com/futurewei-cloud
