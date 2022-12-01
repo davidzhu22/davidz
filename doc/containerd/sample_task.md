@@ -2,8 +2,8 @@
 
 ### Features
 1. Edge clusters
-1. Cascading edge clusters
-2. Inter-cluster communication
+2. Cascading edge clusters
+3. Inter-cluster communication
 
 #### Edge Cluster
 The goal of this feature is to allow running K8s-flavored cluster on the edge and can both tolerate network and node failure. In specific:
