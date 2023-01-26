@@ -1,3 +1,5 @@
+sudo apt install golang-golang-x-tools
+
 https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#3-download-ubuntu
 
 https://learn.microsoft.com/en-us/windows/wsl/install
