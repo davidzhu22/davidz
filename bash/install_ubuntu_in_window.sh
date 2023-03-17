@@ -1,3 +1,9 @@
+compile: version “go1.15.3“ does not match go tool version “go1.13.8“
+Solution:
+root@davidzhu:/usr/bin# ls -l go*
+unlink go
+ls -l go*
+
 sudo apt install golang-golang-x-tools
 
 https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#3-download-ubuntu
