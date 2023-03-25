@@ -1,3 +1,6 @@
+ssh auto connect instruction link and do ppk file:
+https://stackoverflow.com/questions/59421540/unable-to-use-key-file-id-rsa-openssh-ssh-2-private-key-when-authentic
+
 link: https://cloud.google.com/compute/docs/connect/add-ssh-keys
 
 https://stackoverflow.com/questions/59091502/how-to-add-an-ssh-key-to-google-cloud-using-the-cli
