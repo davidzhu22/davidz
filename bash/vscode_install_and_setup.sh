@@ -1,3 +1,6 @@
+#install and setup link
+https://learn.microsoft.com/en-us/azure/developer/go/configure-visual-studio-code
+
 Material Icon Theme
 # install go and have a debug, your can use F1 -> Go Extension
 Rich Go language support for Visual Studio Code
