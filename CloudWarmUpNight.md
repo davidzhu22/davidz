@@ -47,7 +47,11 @@ docker tag app:1.0 us.gcr.io/<PROJECT_ID>/app
 ```
 
 - Push the image to Container Registry
-
+Notes: before you push, you should run the following script(Jan 8, 2024. Google change push policy, need permission to push"
+```bash
+gcloud auth configure-docker
+```
+After done, click "Y" accepted
 ```bash
 docker push us.gcr.io/<PROJECT_ID>/app
 ```
